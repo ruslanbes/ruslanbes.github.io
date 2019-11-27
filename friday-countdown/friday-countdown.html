@@ -5,6 +5,26 @@
 		<meta name=viewport content="width=device-width, initial-scale=1">
 		<title>Friday countdown</title>
 <script type="text/javascript"><!--
+
+function iify() {
+	now = new Date();
+    today = now.getDay();
+    daywanted = 5;
+    offset = today - daywanted;
+	switch (offset) {
+		case -1:
+		case 6:
+			return ("Almost.");
+		case 0:
+			return ("Yep.");	
+		case 1:
+		case -6:
+			return ("You just missed it.");
+		default:
+			return ("Nope.");
+	}
+}
+
 var DateDiff = {
 
     asString: function(d1, d2) {
@@ -27,12 +47,14 @@ Date.prototype.addDays = function(days) {
 }
 
 function friday_countdown() {
-	now = new Date();
-    day = now.getDay();
+	var now = new Date();
+    var day = now.getDay();
+    var msg = iify();
+
     if (day > 5) {
-        return ("Relax, it's weekend");
+        return msg;
     } else if (day == 5) {
-        return ("It's Friday");
+        return msg;
     }
     friday = now.addDays(5 - day);
     friday.setHours(0);
@@ -40,7 +62,7 @@ function friday_countdown() {
     friday.setSeconds(0);
     friday.setMilliseconds(0);
   
-    return ("It's " + DateDiff.asString(now, friday) + " till Friday");
+    return (msg  + '<br/><span class="medium">' + DateDiff.asString(now, friday) + "</span>");
 }
 
 //-->
@@ -54,6 +76,7 @@ body {margin: 0; padding: 0; font-family: Verdana,Geneva,sans-serif;}
 #content { position: relative; display: table-cell; vertical-align: middle; text-align: center; }
 #footer { position: relative; display: table-cell; vertical-align: bottom; text-align: center; }
 .big { font-size: 36pt; }
+.medium { font-size: 24pt; }
 --></style>
 	</head>
 
